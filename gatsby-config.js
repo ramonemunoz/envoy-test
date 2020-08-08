@@ -25,7 +25,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
-        fonts: [`raleway\:400,600`, `nunito\:400`],
+        fonts: [`raleway\:400,600`, `nunito\:400,600`],
         display: "swap",
       },
     },
