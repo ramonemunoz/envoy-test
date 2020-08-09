@@ -34,7 +34,7 @@ export default () => {
     const urlInfo = generateInfo()
 
     const resultComics = await fetch(
-      `http://gateway.marvel.com/v1/public/characters/${urlInfo.characterId}/comics?format=comic&titleStartsWith=iron%20man&orderBy=title&ts=${urlInfo.today}&apikey=${urlInfo.publicKey}&hash=${urlInfo.hash}`
+      `https://gateway.marvel.com/v1/public/characters/${urlInfo.characterId}/comics?format=comic&titleStartsWith=iron%20man&orderBy=title&ts=${urlInfo.today}&apikey=${urlInfo.publicKey}&hash=${urlInfo.hash}`
     )
       .then(function (response) {
         if (response.ok) {
@@ -52,7 +52,7 @@ export default () => {
     }
 
     const resultBio = await fetch(
-      `http://gateway.marvel.com/v1/public/characters/${urlInfo.characterId}?ts=${urlInfo.today}&apikey=${urlInfo.publicKey}&hash=${urlInfo.hash}`
+      `https://gateway.marvel.com/v1/public/characters/${urlInfo.characterId}?ts=${urlInfo.today}&apikey=${urlInfo.publicKey}&hash=${urlInfo.hash}`
     )
       .then(function (response) {
         if (response.ok) {
