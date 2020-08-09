@@ -140,7 +140,7 @@ export default () => {
             <div className="about">
               <div className="information-section">
                 <Image
-                  className="icon"
+                  className="icon order-one"
                   fluid={geniusicon.sharp.fluid}
                   alt="Iron Man"
                   imgStyle={{ objectFit: "contain" }}
@@ -152,9 +152,9 @@ export default () => {
                   with honors at the age of 17.
                 </p>
               </div>
-              <div className="information-section">
+              <div className="information-section order-two">
                 <Image
-                  className="icon"
+                  className="icon order-two"
                   fluid={engineericon.sharp.fluid}
                   alt="Iron Man"
                   imgStyle={{ objectFit: "contain" }}
@@ -165,7 +165,7 @@ export default () => {
                   almost any, if not all machinery.
                 </p>
               </div>
-              <div className="information-section">
+              <div className="information-section order-three">
                 <Image
                   className="icon"
                   fluid={businessmanicon.sharp.fluid}
@@ -180,7 +180,7 @@ export default () => {
                   companies from virtually nothing.
                 </p>
               </div>
-              <div className="information-section">
+              <div className="information-section order-four">
                 <Image
                   className="icon"
                   fluid={tacticalicon.sharp.fluid}

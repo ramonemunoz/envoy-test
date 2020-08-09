@@ -23,6 +23,18 @@ const SimpleSlider = comics => {
     slidesToShow: 6,
     slidesToScroll: 1,
     centerMode: true,
+    responsive: [
+      {
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: false,
+          centerMode: true,
+        },
+      },
+    ],
   }
   return (
     <div className="slider-container">
