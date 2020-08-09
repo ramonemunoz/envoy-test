@@ -15,8 +15,8 @@ export default () => {
 
   const generateInfo = () => {
     const characterId = 1009368
-    const publicKey = process.env.PUBLIC_KEY
-    const privateKey = process.env.PRIVATE_KEY
+    const publicKey = process.env.GATSBY_PUBLIC_KEY
+    const privateKey = process.env.GATSBY_PRIVATE_KEY
     const date = new Date()
     const today = date.getDate()
     const hash = md5(today + privateKey + publicKey)
@@ -49,11 +49,10 @@ export default () => {
 
     if (resultComics !== undefined) {
       setComics(resultComics.data.results)
-      console.log(resultComics.data.results)
     }
 
     const resultBio = await fetch(
-      `https://gateway.marvel.com/v1/public/characters/${urlInfo.characterId}?ts=${urlInfo.today}&apikey=${urlInfo.publicKey}&hash=${urlInfo.hash}`
+      `http://gateway.marvel.com/v1/public/characters/${urlInfo.characterId}?ts=${urlInfo.today}&apikey=${urlInfo.publicKey}&hash=${urlInfo.hash}`
     )
       .then(function (response) {
         if (response.ok) {
@@ -68,7 +67,6 @@ export default () => {
 
     if (resultBio !== undefined) {
       setBio(resultBio.data.results["0"])
-      console.log(resultBio.data.results["0"])
     }
   }
 
