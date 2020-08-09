@@ -1,11 +1,82 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import Image from "gatsby-image"
 import Layout from "../components/layout"
 import Hero from "../components/hero"
+import Slider from "../components/slider"
+import { PUBLIC_KEY, PRIVATE_KEY } from "gatsby-env-variables"
 import "../styles/pages/index.scss"
 
+const fetch = require(`node-fetch`)
+const md5 = require("md5")
+
 export default () => {
+  const [comics, setComics] = useState([])
+  const [bio, setBio] = useState([])
+
+  const generateInfo = () => {
+    const characterId = 1009368
+    const publicKey = PUBLIC_KEY
+    const privateKey = PRIVATE_KEY
+    const date = new Date()
+    const today = date.getDate()
+    const hash = md5(today + privateKey + publicKey)
+
+    const generatedInfo = {
+      publicKey: publicKey,
+      today: today,
+      hash: hash,
+      characterId: characterId,
+    }
+    return generatedInfo
+  }
+
+  const fetchMarvelInfo = async () => {
+    const urlInfo = generateInfo()
+
+    const resultComics = await fetch(
+      `http://gateway.marvel.com/v1/public/characters/${urlInfo.characterId}/comics?format=comic&titleStartsWith=iron%20man&orderBy=title&ts=${urlInfo.today}&apikey=${urlInfo.publicKey}&hash=${urlInfo.hash}`
+    )
+      .then(function (response) {
+        if (response.ok) {
+          return response.json()
+        } else {
+          return Promise.reject(response)
+        }
+      })
+      .catch(function (err) {
+        console.warn("Could not retrive data")
+      })
+
+    if (resultComics !== undefined) {
+      setComics(resultComics.data.results)
+      console.log(resultComics.data.results)
+    }
+
+    const resultBio = await fetch(
+      `https://gateway.marvel.com/v1/public/characters/${urlInfo.characterId}?ts=${urlInfo.today}&apikey=${urlInfo.publicKey}&hash=${urlInfo.hash}`
+    )
+      .then(function (response) {
+        if (response.ok) {
+          return response.json()
+        } else {
+          return Promise.reject(response)
+        }
+      })
+      .catch(function (err) {
+        console.warn("Could not retrive data")
+      })
+
+    if (resultBio !== undefined) {
+      setBio(resultBio.data.results["0"])
+      console.log(resultBio.data.results["0"])
+    }
+  }
+
+  useEffect(() => {
+    fetchMarvelInfo()
+  }, [])
+
   const {
     ironmanapi,
     geniusicon,
@@ -51,12 +122,13 @@ export default () => {
       }
     }
   `)
+
   return (
     <>
       <Layout>
-        <Hero />
+        <Hero {...bio} />
         <div className="homepage-container">
-          <h2 class="text-center">
+          <h2 className="text-center">
             Contrary to popular belief, he knows exactly what he’s doing.
           </h2>
           <div className="content-container">
@@ -126,6 +198,7 @@ export default () => {
             </div>
           </div>
         </div>
+        <Slider {...comics} />
       </Layout>
     </>
   )

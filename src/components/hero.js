@@ -3,7 +3,7 @@ import { Link, graphql, useStaticQuery } from "gatsby"
 import Image from "gatsby-image"
 import "../styles/components/hero.scss"
 
-const Hero = () => {
+const Hero = bio => {
   const { logo, ironmancartoon } = useStaticQuery(graphql`
     query {
       logo: file(relativePath: { eq: "logo.png" }) {
@@ -39,13 +39,7 @@ const Hero = () => {
       </div>
       <div className="content-container">
         <div className="text">
-          <p>
-            Wounded, captured and forced to build a weapon by his enemies,
-            billionaire industrialist Tony Stark instead created an advanced
-            suit of armor to save his life and escape captivity. Now with a new
-            outlook on life, Tony uses his money and intelligence to make the
-            world a safer, better place as Iron Man.
-          </p>
+          <p>{bio.description}</p>
           <Link className="get-started" to="/">
             Get Started
           </Link>
