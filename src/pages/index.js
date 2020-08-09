@@ -4,7 +4,6 @@ import Image from "gatsby-image"
 import Layout from "../components/layout"
 import Hero from "../components/hero"
 import Slider from "../components/slider"
-import { PUBLIC_KEY, PRIVATE_KEY } from "gatsby-env-variables"
 import "../styles/pages/index.scss"
 
 const fetch = require(`node-fetch`)
@@ -16,8 +15,8 @@ export default () => {
 
   const generateInfo = () => {
     const characterId = 1009368
-    const publicKey = PUBLIC_KEY
-    const privateKey = PRIVATE_KEY
+    const publicKey = process.env.PUBLIC_KEY
+    const privateKey = process.env.PRIVATE_KEY
     const date = new Date()
     const today = date.getDate()
     const hash = md5(today + privateKey + publicKey)
