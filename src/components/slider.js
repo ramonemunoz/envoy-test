@@ -7,7 +7,7 @@ import "../styles/components/slider.scss"
 const SimpleSlider = comics => {
   const listComicsNew = Object.entries(comics).map(([key, value]) => {
     return (
-      <div>
+      <div key={`${value.id}`}>
         <img
           className="comic-img"
           src={`${value.thumbnail.path}.${value.thumbnail.extension}`}
@@ -20,18 +20,16 @@ const SimpleSlider = comics => {
   var settings = {
     dots: false,
     infinite: true,
-    slidesToShow: 6,
-    slidesToScroll: 1,
-    centerMode: true,
+    slidesToShow: 6.5,
+    swipeToSlide: true,
     responsive: [
       {
         breakpoint: 992,
         settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
+          slidesToShow: 1.5,
           infinite: true,
           dots: false,
-          centerMode: true,
+          swipeToSlide: true,
         },
       },
     ],
